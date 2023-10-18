@@ -1,9 +1,10 @@
 {
   "browser": "CHROME",
   "implicitlyWaitTime": 30000,
-  "url": "www.google.com",
-  "baseApiPath": "https://bookstore.toolsqa.com/",
-  "userId": "d3897c4a-d47f-4105-936e-bab908498b45",
-  "username": "vasya",
-  "password": "User123!"
+  "url": " https://www.linkedin.com/home",
+  "usernameLink": "",
+  "passwordLink": "",
+  "baseApiPath": "http://api.openweathermap.org",
+  "APIkey": "a6919dd2e20c5ca67bcf1c727a0b36bf",
+  "numOfThreads": 2
 }

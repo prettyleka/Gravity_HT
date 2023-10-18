@@ -14,29 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.datatransfer.Clipboard;
-import java.awt.font.TextAttribute;
-import java.awt.im.InputMethodHighlight;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import static java.awt.Toolkit.getDefaultToolkit;
-import static javax.imageio.ImageIO.write;
-import static org.apache.commons.io.FileUtils.copyFile;
 
 
 public class InfraStructureSelenium {
@@ -95,46 +74,44 @@ public class InfraStructureSelenium {
     }
 
     /** Find element using given locator */
-    protected WebElement find(By locator) {
+    public WebElement find(By locator) {
         return driver.findElement(locator);
     }
 
 
     /** Find all elements using given locator */
-    protected List<WebElement> findAll(By locator) {
+    public List<WebElement> findAll(By locator) {
         return driver.findElements(locator);
     }
 
 
     /** Click on element with given locator when its visible */
     public void click(By locator) {
-        waitForVisibilityOf(locator, Duration.ofSeconds(5));
+        waitForVisibilityOf(locator, Duration.ofSeconds(10));
         find(locator).click();
     }
 
 
     /** Type given text into element with given locator */
-    public void type(String text, By locator) {
+    public void enterText(String text, By locator) {
         waitForVisibilityOf(locator, Duration.ofSeconds(5));
         find(locator).sendKeys(text);
     }
 
-
-    /** Get URL of current page from browser */
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
+    /** Get given text from element with given locator */
+    public String getText(By locator) {
+        waitForVisibilityOf(locator, Duration.ofSeconds(5));
+        return find(locator).getText();
     }
 
-
-    /** Get title of current page */
-    public String getCurrentPageTitle() {
-        return driver.getTitle();
+    /** Get given attribute from element with given locator */
+    public String getAttribute(By locator, String attribute) {
+        waitForVisibilityOf(locator, Duration.ofSeconds(5));
+        return find(locator).getAttribute(attribute);
     }
-
-
-    /** Get source of current page */
-    public String getCurrentPageSource() {
-        return driver.getPageSource();
+    public Boolean getAttributeBoolean(By locator, String attribute) {
+        waitForVisibilityOf(locator, Duration.ofSeconds(10));
+        return Boolean.valueOf(find(locator).getAttribute(attribute));
     }
 
 
@@ -162,27 +139,4 @@ public class InfraStructureSelenium {
             attempts++;
         }
     }
-
-    public void openNewTab() {
-        ((JavascriptExecutor) driver).executeScript("window.open('about:blank','_blank');");
-        Set<String> handles = driver.getWindowHandles();
-        int newTab = handles.size() - 1;
-        driver.switchTo().window(handles.toArray()[newTab].toString());
-    }
-
-    public void switchTab(int num) {
-        Set<String> handles = driver.getWindowHandles();
-        driver.switchTo().window(handles.toArray()[num].toString());
-    }
-
-    public void closeTab(int num) {
-        Set<String> handles = driver.getWindowHandles();
-        driver.switchTo().window(handles.toArray()[num].toString()).close();
-    }
-
-    public int getNumberOfTabs() {
-        Set<String> handles = driver.getWindowHandles();
-        return handles.size();
-    }
-
 }

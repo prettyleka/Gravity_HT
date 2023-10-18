@@ -1,28 +1,33 @@
 package UISelenium;
 
-import Infrastructure.BackEnd.Model.BookStore.Books;
-import Infrastructure.BackEnd.Model.Information.Book;
+import Infrastructure.BackEnd.Model.WeatherResponse.WeatherResponse;
 import Infrastructure.BackEnd.Service.BackEndInfra;
-import Infrastructure.UI.Selenium.Configuration;
 import org.testng.annotations.Test;
 
 
-
-public class TestItAPI {
-    BackEndInfra backEndInfra = new BackEndInfra();
-    private static final Configuration configuration = new Configuration();
-
-
-    public TestItAPI() throws Exception {
+public class TestAPI {
+    private final BackEndInfra backEndInfra = new BackEndInfra();
+    public TestAPI() throws Exception {
     }
 
     @Test(description = "")
-    public void tryItApi() throws Exception {
-        String userId = String.valueOf(configuration.getValue("userId"));
-        Books books =  backEndInfra.getAllBooks();
-        Book book = books.getBooks().get(1);
-        backEndInfra.getBook(book.getIsbn());
-        backEndInfra.deleteBook(userId, book.getIsbn());
-        backEndInfra.addBook(userId, book.getIsbn());
+    public void London() throws Exception {
+        WeatherResponse london = backEndInfra.getWeather("London,uk", "imperial");
+        System.out.println(london.sys.getCountry());
+        System.out.println(london.main.getTemp());
+    }
+
+    @Test(description = "")
+    public void NewYork() throws Exception {
+        WeatherResponse ny = backEndInfra.getWeather("New York,us", "imperial");
+        System.out.println(ny.sys.getCountry());
+        System.out.println(ny.main.getTemp());
+    }
+
+    @Test(description = "")
+    public void TelAviv() throws Exception {
+        WeatherResponse ta = backEndInfra.getWeather("Tel-Aviv,il", "metric");
+        System.out.println(ta.sys.getCountry());
+        System.out.println(ta.main.getTemp());
     }
 }
