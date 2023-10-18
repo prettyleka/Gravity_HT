@@ -1,0 +1,9 @@
+{
+  "browser": "CHROME",
+  "implicitlyWaitTime": 30000,
+  "url": "www.google.com",
+  "baseApiPath": "https://bookstore.toolsqa.com/",
+  "userId": "d3897c4a-d47f-4105-936e-bab908498b45",
+  "username": "vasya",
+  "password": "User123!"
+}
